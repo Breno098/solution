@@ -9,6 +9,14 @@
         "prod": "npm run production",
         "production": "mix --production"
     },
+    "dependencies": {
+        "@mdi/font": "^5.9.55",
+        "date-fns": "^2.23.0",
+        "moment": "^2.29.1",
+        "sweetalert2": "^10.16.9",
+        "v-mask": "^2.2.4",
+        "vuetify": "^2.6.3"
+    },
     "devDependencies": {
         "@inertiajs/inertia": "^0.10.0",
         "@inertiajs/inertia-vue3": "^0.5.1",
