@@ -15,7 +15,7 @@
         "moment": "^2.29.1",
         "sweetalert2": "^10.16.9",
         "v-mask": "^2.2.4",
-        "vuetify": "^2.6.3"
+        "vuetify": "^3.0.0-alpha.13"
     },
     "devDependencies": {
         "@inertiajs/inertia": "^0.10.0",

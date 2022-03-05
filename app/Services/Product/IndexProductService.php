@@ -13,16 +13,12 @@ class IndexProductService
      * @param  array  $relations
      * @param  bool|string $orderBy
      * @param  bool|int  $itemsPerPage
-     * @param  bool $authorized
      *
      * @return mixed
      */
-    public function run(array $filters = [], array $relations = [], $orderBy = false, $itemsPerPage = false, bool $authorized = true)
+    public function run(array $filters = [], array $relations = [], $orderBy = false, $itemsPerPage = false)
     {
         return Product::with($relations)
-            ->when($authorized, function (Builder $builder) {
-                return $builder->authorizedTenant();
-            })
             ->when(Arr::get($filters, 'name'), function (Builder $builder, $name) {
                 return $builder->where('name', 'like', "%{$name}%");
             })
@@ -32,7 +28,7 @@ class IndexProductService
             ->when(
                 $itemsPerPage,
                 function (Builder $builder, $itemsPerPage) {
-                    return $builder->paginate($itemsPerPage);
+                    return $builder->paginate($itemsPerPage)->withQueryString();
                 },
                 function (Builder $builder) {
                     return $builder->get();

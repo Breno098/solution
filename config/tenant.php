@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'domain_main' => 'solution.test'
+    'domain_main' => 'solution.tests'
 ];

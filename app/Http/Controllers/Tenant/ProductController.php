@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\API\Tenant;
+namespace App\Http\Controllers\Tenant;
 
-use App\Http\Controllers\API\Bases\BaseApiController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use App\Services\Product\IndexProductService;
 use App\Services\Product\StoreProductService;
 use App\Services\Product\UpdateProductService;
 
-class ProductController extends BaseApiController
+class ProductController extends Controller
 {
     /**
      * @param Request $request
@@ -21,16 +21,19 @@ class ProductController extends BaseApiController
      */
     public function index(Request $request, IndexProductService $indexProductService)
     {
-        $this->authorize('product_index');
+        // $this->authorize('product_index');
 
-        $item = $indexProductService->run(
-            $request->query(),
+        $products = $indexProductService->run(
+            $request->all('name'),
             $request->get('relations', []),
             $request->get('orderBy'),
-            $request->get('itemsPerPage'),
+            $request->get('itemsPerPage', 15),
         );
 
-        return $this->sendResponse($item, 'Products retrieved successfully.');
+        return inertia('App/Product/Index', [
+            'filters' => $request->all('name'),
+            'products' => $products
+        ]);
     }
 
     /**
@@ -41,13 +44,13 @@ class ProductController extends BaseApiController
      */
     public function store(StoreProductRequest $storeProductRequest, StoreProductService $storeProductService)
     {
-        $this->authorize('product_add');
+        // $this->authorize('product_add');
 
         $data = $storeProductRequest->validated();
 
         $item = $storeProductService->run($data);
 
-        return $this->sendResponse($item, 'Product created successfully.');
+        return redirect()->route('tenant.product.index');
     }
 
     /**

@@ -16,9 +16,9 @@ class CheckDomainMainMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(request()->getHost() != config('tenant.domain_main')) {
-            abort(401);
-        }
+        // if(request()->getHost() != config('tenant.domain_main')) {
+        //     abort(401);
+        // }
 
         return $next($request);
     }

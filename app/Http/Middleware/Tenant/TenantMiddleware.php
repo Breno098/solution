@@ -27,10 +27,10 @@ class TenantMiddleware
     {
         $tenant = $this->getTenant($request->getHost());
 
-        if (!$tenant && $request->url() != route('error.404')) {
+        if (!$tenant /*&& $request->url() != route('error.404')*/) {
             abort(404);
             // return redirect()->route('error.404');
-        } else if($request->url() !== route('error.404') && !$this->managerTenant->domainIsMain()) {
+        } else if(/*$request->url() !== route('error.404') &&*/ !$this->managerTenant->domainIsMain()) {
             $this->managerTenant->setConnection($tenant);
         }
 
