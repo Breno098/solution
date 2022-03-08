@@ -26,7 +26,7 @@ class ProductController extends Controller
         $products = $indexProductService->run(
             $request->all('name'),
             $request->get('relations', []),
-            $request->get('orderBy'),
+            $request->get('orderBy', 'name'),
             $request->get('itemsPerPage', 15),
         );
 
@@ -34,6 +34,17 @@ class ProductController extends Controller
             'filters' => $request->all('name'),
             'products' => $products
         ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //$this->authorize('product_show');
+        return inertia('App/Product/Create');
     }
 
     /**

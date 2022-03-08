@@ -5,7 +5,7 @@
         #primary - deep-purple-accent-3
      -->
 
-    <v-app :style="{ background: '#FAFAFA' }">
+    <v-app>
         <v-toolbar app color="grey-darken-4" height="50">
             <span class="subheading mr-2">{{ appName }}</span>
 
@@ -30,9 +30,12 @@
                             <v-list-item-title class="mx-auto">Clientes</v-list-item-title>
                         </v-list-item>
                         <v-divider class="mx-2 bg-grey-darken-4"></v-divider>
-                         <v-list-item>
-                            <v-list-item-title class="mx-auto">Produtos</v-list-item-title>
-                        </v-list-item>
+                         <Link :href="route('tenant.product.index')">
+                            <v-list-item>
+                                <v-list-item-title class="mx-auto">Produtos</v-list-item-title>
+                            </v-list-item>
+                        </Link>
+
                          <v-divider class="mx-2 bg-grey-darken-4"></v-divider>
                         <v-list-item>
                             <v-list-item-title class="mx-auto">Serviços</v-list-item-title>
@@ -144,9 +147,14 @@
 <style>
   /* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap'); */
 
-  /* * {
-    font-family: 'Roboto', sans-serif;
-  } */
+  * {
+    /* font-family: 'Roboto', sans-serif; */
+    background: '#FAFAFA'
+  }
+
+  a {
+    text-decoration: none;
+  }
 
   /* .v-application ::-webkit-scrollbar {
     height: 8px;
