@@ -25,16 +25,16 @@
 
                 <!-- New Profile Photo Preview -->
                 <div class="mt-2" v-show="photoPreview">
-                    <span class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
-                          :style="'background-image: url(\'' + photoPreview + '\');'">
+                    <span class="block rounded-full w-20 h-20"
+                          :style="'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' + photoPreview + '\');'">
                     </span>
                 </div>
 
-                <jet-secondary-button class="mt-2 mr-2" type="button" @click.prevent="selectNewPhoto">
+                <jet-secondary-button class="mt-2 mr-2" type="button" @click.native.prevent="selectNewPhoto">
                     Select A New Photo
                 </jet-secondary-button>
 
-                <jet-secondary-button type="button" class="mt-2" @click.prevent="deletePhoto" v-if="user.profile_photo_path">
+                <jet-secondary-button type="button" class="mt-2" @click.native.prevent="deletePhoto" v-if="user.profile_photo_path">
                     Remove Photo
                 </jet-secondary-button>
 
@@ -69,16 +69,15 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
-    import JetButton from '@/Jetstream/Button.vue'
-    import JetFormSection from '@/Jetstream/FormSection.vue'
-    import JetInput from '@/Jetstream/Input.vue'
-    import JetInputError from '@/Jetstream/InputError.vue'
-    import JetLabel from '@/Jetstream/Label.vue'
-    import JetActionMessage from '@/Jetstream/ActionMessage.vue'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+    import JetButton from '@/Jetstream/Button'
+    import JetFormSection from '@/Jetstream/FormSection'
+    import JetInput from '@/Jetstream/Input'
+    import JetInputError from '@/Jetstream/InputError'
+    import JetLabel from '@/Jetstream/Label'
+    import JetActionMessage from '@/Jetstream/ActionMessage'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
 
-    export default defineComponent({
+    export default {
         components: {
             JetActionMessage,
             JetButton,
@@ -112,8 +111,7 @@
 
                 this.form.post(route('user-profile-information.update'), {
                     errorBag: 'updateProfileInformation',
-                    preserveScroll: true,
-                    onSuccess: () => (this.clearPhotoFileInput()),
+                    preserveScroll: true
                 });
             },
 
@@ -122,34 +120,21 @@
             },
 
             updatePhotoPreview() {
-                const photo = this.$refs.photo.files[0];
-
-                if (! photo) return;
-
                 const reader = new FileReader();
 
                 reader.onload = (e) => {
                     this.photoPreview = e.target.result;
                 };
 
-                reader.readAsDataURL(photo);
+                reader.readAsDataURL(this.$refs.photo.files[0]);
             },
 
             deletePhoto() {
                 this.$inertia.delete(route('current-user-photo.destroy'), {
                     preserveScroll: true,
-                    onSuccess: () => {
-                        this.photoPreview = null;
-                        this.clearPhotoFileInput();
-                    },
+                    onSuccess: () => (this.photoPreview = null),
                 });
             },
-
-            clearPhotoFileInput() {
-                if (this.$refs.photo?.value) {
-                    this.$refs.photo.value = null;
-                }
-            },
         },
-    })
+    }
 </script>

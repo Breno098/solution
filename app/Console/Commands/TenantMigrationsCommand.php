@@ -14,7 +14,7 @@ class TenantMigrationsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'tenant:migrate {--refresh} {id?}';
+    protected $signature = 'tenant:migrate {--refresh} {--fresh} {id?}';
 
     /**
      * The console command description.
@@ -63,7 +63,7 @@ class TenantMigrationsCommand extends Command
 
     private function execCommand(Tenant $tenant)
     {
-        $command = $this->option('refresh') ? 'migrate:refresh' : 'migrate';
+        $command = $this->option('fresh') ? 'migrate:fresh' : 'migrate';
 
         $this->managerTenant->setConnection($tenant);
 

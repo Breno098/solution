@@ -31,7 +31,7 @@
                         </p>
                     </div>
 
-                    <div class="mt-4" v-html="qrCode">
+                    <div class="mt-4 dark:p-4 dark:w-56 dark:bg-white" v-html="qrCode">
                     </div>
                 </div>
 
@@ -87,14 +87,13 @@
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
-    import JetActionSection from '@/Jetstream/ActionSection.vue'
-    import JetButton from '@/Jetstream/Button.vue'
-    import JetConfirmsPassword from '@/Jetstream/ConfirmsPassword.vue'
-    import JetDangerButton from '@/Jetstream/DangerButton.vue'
-    import JetSecondaryButton from '@/Jetstream/SecondaryButton.vue'
+    import JetActionSection from '@/Jetstream/ActionSection'
+    import JetButton from '@/Jetstream/Button'
+    import JetConfirmsPassword from '@/Jetstream/ConfirmsPassword'
+    import JetDangerButton from '@/Jetstream/DangerButton'
+    import JetSecondaryButton from '@/Jetstream/SecondaryButton'
 
-    export default defineComponent({
+    export default {
         components: {
             JetActionSection,
             JetButton,
@@ -163,5 +162,5 @@
                 return ! this.enabling && this.$page.props.user.two_factor_enabled
             }
         }
-    })
+    }
 </script>

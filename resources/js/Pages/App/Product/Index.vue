@@ -1,6 +1,6 @@
 <template>
     <app-layout>
-        <Head title="Produtos"/>
+         <!-- <Head title="Produtos"/> -->
 
         <p class="font-weight-regular mb-5 text-h5">
             Produtos
@@ -8,14 +8,11 @@
 
         <v-row class="mb-2">
             <v-col cols="6" md="10">
-                <v-menu
-                    v-model="menu"
-                    :close-on-content-click="false"
-                >
+                <v-menu>
                     <template v-slot:activator="{ props }">
-                        <v-btn v-bind="props" size="small">
+                        <v-btn v-bind="props" small text>
                             Filtros
-                            <v-icon color="deep-purple-accent-3">mdi-chevron-down</v-icon>
+                            <v-icon color="deep-purple accent-3">mdi-chevron-down</v-icon>
                         </v-btn>
                     </template>
 
@@ -26,60 +23,59 @@
                                     <v-col cols="12">
                                         <v-text-field
                                             label="Nome"
-                                            color="deep-purple-accent-3"
+                                            color="deep-purple accent-3"
                                             clearable
                                             v-model="filters.name"
-                                            density="comfortable"
+                                            dense
                                         ></v-text-field>
                                     </v-col>
                                 </v-row>
                             </v-card-text>
 
-                            <v-card-actions>
+                            <!-- <v-card-actions>
                                 <v-spacer></v-spacer>
 
                                 <Link :href="route('tenant.product.index')" class="mr-2">
                                     <v-btn
-                                        color="deep-purple-accent-3"
-                                        size="small"
-                                        rounded="lg"
-                                        variant="contained-text"
+                                        color="deep-purple accent-3"
+                                        small
+                                        rounded
                                     >
                                         Limpar
                                     </v-btn>
                                  </Link>
 
                                 <v-btn
-                                    color="deep-purple-accent-3"
+                                    color="deep-purple accent-3"
                                     type="submit"
-                                    size="small"
-                                    rounded="lg"
+                                    small
+                                    rounded
                                 >
                                     Buscar
                                 </v-btn>
-                            </v-card-actions>
+                            </v-card-actions> -->
                         </v-card>
                     </form>
                 </v-menu>
             </v-col>
 
             <v-col cols="6" md="2">
-                <Link :href="route('tenant.product.create')">
+                <inertia-link :href="route('tenant.product.create')">
                     <v-btn
-                        rounded="lg"
-                        color="deep-purple-accent-3"
+                        rounded
+                        color="deep-purple accent-3"
                         block
-                        size="small"
+                        small
                     >
                         Criar produto <v-icon>mdi-plus</v-icon>
                     </v-btn>
-                </Link>
+                </inertia-link>
             </v-col>
         </v-row>
 
         <v-card >
-            <v-card-header-text class="px-5 py-5">
-                <v-table dense>
+            <v-card-text class="px-5 py-5">
+                <v-simple-table dense>
                     <template v-slot:default>
                         <thead>
                             <tr>
@@ -97,37 +93,35 @@
                             <td>{{ formatMoney(product.default_value) }}</td>
                             <td class="text-right">
                                 <v-btn
-                                    rounded="lg"
-                                    color="deep-purple-accent-3"
-                                    class="mr-2"
-                                    size="small"
-                                    variant="contained-text"
+                                    color="deep-purple lighten-5"
+                                    class="mr-2 rounded-lg"
+                                    small
+                                    elevation="0"
                                 >
-                                    <v-icon>mdi-eye</v-icon>
+                                    <v-icon color="deep-purple lighten-2">mdi-eye</v-icon>
                                 </v-btn>
                                 <v-btn
-                                    rounded="lg"
-                                    color="green-accent-3"
-                                    class="mr-2"
-                                    size="small"
-                                    variant="contained-text"
+                                    color="green lighten-5"
+                                    class="mr-2 rounded-lg"
+                                    small
+                                    elevation="0"
                                 >
-                                    <v-icon>mdi-pencil</v-icon>
+                                    <v-icon color="green lighten-2">mdi-pencil</v-icon>
                                 </v-btn>
                                 <v-btn
-                                    color="red-accent-4"
-                                    rounded="lg"
-                                    size="small"
-                                    variant="contained-text"
+                                    color="red lighten-5"
+                                    small
+                                    elevation="0"
+                                    class="rounded-lg"
                                 >
-                                    <v-icon>mdi-delete</v-icon>
+                                    <v-icon color="red lighten-2">mdi-delete</v-icon>
                                 </v-btn>
                             </td>
                             </tr>
                         </tbody>
                     </template>
-                </v-table>
-            </v-card-header-text>
+                </v-simple-table>
+            </v-card-text>
 
             <v-card-actions>
                 <v-spacer></v-spacer>
@@ -140,15 +134,11 @@
 <script>
     import AppLayout from '@/Layouts/AppLayout.vue'
     import Pagination from '@/Components/Pagination'
-    import { Head, Link } from '@inertiajs/inertia-vue3';
-    import { defineComponent } from 'vue'
 
-    export default defineComponent({
+    export default {
         components: {
-            Pagination,
             AppLayout,
-            Head,
-            Link,
+            Pagination
         },
         props: {
             products: Object,
@@ -169,5 +159,5 @@
                 });
             }
         },
-    })
+    };
 </script>

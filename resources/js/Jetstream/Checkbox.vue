@@ -4,31 +4,32 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-    emits: ['update:checked'],
-
-    props: {
-        checked: {
-            type: [Array, Boolean],
-            default: false,
+    export default {
+        model: {
+            prop: "checked",
+            event: "change",
         },
-        value: {
-            default: null,
-        },
-    },
 
-    computed: {
-        proxyChecked: {
-            get() {
-                return this.checked;
+        props: {
+            checked: {
+                type: [Array, Boolean],
+                default: false,
             },
-
-            set(val) {
-                this.$emit("update:checked", val);
+            value: {
+                default: null,
             },
         },
-    },
-})
+
+        computed: {
+            proxyChecked: {
+                get() {
+                    return this.checked;
+                },
+                set(val) {
+                    this.$emit("change", val);
+                },
+            },
+        },
+    }
 </script>
+

@@ -1,102 +1,62 @@
-# Solution
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-Este aplicativo trata se de um aplicativo para cadastros e organização de clientes, produtos, serviços, compromissos, custos, orçamentos, ordens de serviços e demais atividades financeiras de uma empresa.  
+<p align="center">
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
+## About Laravel
 
-## Instalação
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-### Clonando e instalando dependências
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Clone o repositório
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-    git clone https://github.com/Breno098/solution.git
+## Learning Laravel
 
-Navegue até a pasta do projeto:
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-    cd .\solution
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-Faça a instalação das dependencias PHP com o comando:
+## Laravel Sponsors
 
-    composer install
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-Para as dependencias JavaScript, utilize:
+### Premium Partners
 
-    npm install
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Cubet Techno Labs](https://cubettech.com)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[Many](https://www.many.co.uk)**
+- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
+- **[DevSquad](https://devsquad.com)**
+- **[Curotec](https://www.curotec.com/)**
+- **[OP.GG](https://op.gg)**
 
-### Comandos para execução e construção
+## Contributing
 
-Copie o arquivo env de exemplo e faça as alterações de configuração necessárias no arquivo .env
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-    cp .env.example .env
+## Code of Conduct
 
-Gerar uma nova chave de aplicativo
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-    php artisan key:generate
+## Security Vulnerabilities
 
-Execute as migrações do banco de dados (defina a conexão do banco de dados em .env antes de migrar)
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-    php artisan migrate
+## License
 
-Inicie o servidor de desenvolvimento local
-
-    php artisan serve
-
-Construa e execute o projeto com o comando
-
-    npm run watch 
-    // or
-    npm run dev
-
-Agora você pode acessar o servidor em http: // localhost:8000
-
-## Populando banco de dados
-
-Crie um banco de dados e adicione as informações no arquivo de variáveis de ambiente (.env).
-
-    DB_DATABASE=NOME_DO_BANCO_DE_DADOS
-    DB_USERNAME=USUARIO
-    DB_PASSWORD=SENHA
-
-Para testes, preencha os dados das tabelas de clients, items, addresses e demais tabelas do aplicativo. Execute o comando:
-
-    php artisan db:seed
-
-## Visão geral do código
-
-### Dependências
-
-- [Vue](https://vuejs.org/)
-- [Vuetify](https://vuetifyjs.com/en/)
-- [Vue Router](https://router.vuejs.org/)
-- [Vuex](https://vuex.vuejs.org/)
-- [Vue-meta](https://vue-meta.nuxtjs.org/)
-- [V-mask](https://www.npmjs.com/package/v-mask)
-- [Moment.js](https://momentjs.com/)
-- [date-fns](https://date-fns.org/)
-
-### Pastas
-
-- `app` - Contém modelos Eloquent
-- `app/Http/Controllers` - Contém controladores
-- `app/Models` - Contém modelos/entidades
-- `app/Services` - Contém serviços e utilitários
-- `config` - Contém todos os arquivos de configuração do projeto
-- `database/factories` - Contém fábrica de modelos para testes
-- `database/migrations` - Contém migrações/criações de tabelas de banco de dados
-- `database/seeds` - Contém o semeador de banco de dados
-- `resources/view` - Contém views (.blade)
-- `resources/js/components` - Contém componentes Vue
-- `resources/js/layouts` - Contém layouts/partes externas ao core construídas Vue
-- `resources/js/middlewares` - Contém middlewares e verificadores
-- `resources/js/pages/auth` - Contém páginas de autenticação construídas Vue
-- `resources/js/pages/settings` - Contém páginas de configuração de usuário construídas Vue
-- `resources/js/pages/app` - Contém páginas do core do apliactivo construídas Vue
-- `resources/js/pages/errors` - Contém páginas de erros construídas Vue
-- `resources/js/plugins` - Contém plugins e extenções
-- `resources/js/routes` - Contém todos as rotas do SPA
-- `routes/js/store` - Contém arquivo de store
-- `routes` - Contém todas as rotas api definidas no arquivo api.php
-
-### Variáveis de ambiente
-
-- `.env` - As variáveis ​​de ambiente podem ser definidas neste arquivo
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

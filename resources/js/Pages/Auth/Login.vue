@@ -1,98 +1,124 @@
-<template>
-    <Head title="Log in" />
+ <template>
+    <v-app>
+       <v-main>
+            <v-container fluid fill-height style="background: #7986CB; background: linear-gradient(to bottom, #9FA8DA, #5C6BC0, #303F9F);">
+                <v-layout flex align-center justify-center>
+                    <v-flex xs12 sm8 elevation-6>
+                        <v-card elevation="24" color="indigo darken-3">
+                            <v-row>
+                                <v-col cols="4" class="py-0 mx-0 px-0">
+                                    <v-container
+                                        align-center
+                                        justify-space-around
+                                        fill-height
+                                        flex-column
+                                    >
+                                        <div>
+                                            <v-icon dark class="text-h1">mdi-gavel</v-icon>
+                                        </div>
 
-    <jet-authentication-card>
-        <template #logo>
-            <jet-authentication-card-logo />
-        </template>
+                                        <div class="white--text text-h3">
+                                            Auction
+                                        </div>
+                                    </v-container>
+                                </v-col>
 
-        <jet-validation-errors class="mb-4" />
+                                <v-col cols="8" class="py-0 mx-0 px-0">
+                                    <v-card class="py-12 px-10">
+                                        <v-row>
+                                            <v-col cols="12">
+                                                <v-text-field
+                                                    v-model="form.email"
+                                                    label="Email"
+                                                    color="indigo darken-3"
+                                                    required
+                                                    v-on:keyup.enter="submit"
+                                                    outlined
+                                                    dense
+                                                    prepend-inner-icon="mdi-email"
+                                                    :hint="errors.email === 'The email field is required.' ? 'Insira a email' : errors.email"
+                                                    :persistent-hint="errors.email"
+                                                ></v-text-field>
+                                            </v-col>
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div>
+                                            <v-col cols="12">
+                                                <v-text-field
+                                                    v-model="form.password"
+                                                    label="Password"
+                                                    color="indigo darken-3"
+                                                    required
+                                                    type="password"
+                                                    v-on:keyup.enter="submit"
+                                                    outlined
+                                                    dense
+                                                    prepend-inner-icon="mdi-lock-open"
+                                                    :hint="errors.password === 'The password field is required.' ? 'Insira a senha' : errors.password"
+                                                    :persistent-hint="errors.password"
+                                                ></v-text-field>
+                                            </v-col>
 
-        <form @submit.prevent="submit">
-            <div>
-                <jet-label for="email" value="Email" />
-                <jet-input id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus />
-            </div>
+                                            <v-col cols="8">
+                                                <div class="indigo--text text-caption">
+                                                    Ainda não possui conta? <b>Clique aqui</b>
+                                                </div>
+                                            </v-col>
 
-            <div class="mt-4">
-                <jet-label for="password" value="Password" />
-                <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" />
-            </div>
-
-            <div class="block mt-4">
-                <label class="flex items-center">
-                    <jet-checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Forgot your password?
-                </Link>
-
-                <jet-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </jet-button>
-            </div>
-        </form>
-    </jet-authentication-card>
+                                            <v-col cols="12">
+                                                <v-btn color="indigo darken-3 white--text" v-on:click="submit" large>
+                                                    Entrar
+                                                </v-btn>
+                                            </v-col>
+                                        </v-row>
+                                    </v-card>
+                                </v-col>
+                            </v-row>
+                            <!--
+                                <inertia-link v-if="true" :href="route('password.request')" style="text-decoration: none; color: white">
+                                    Forgot your password?
+                                </inertia-link>
+                            -->
+                        </v-card>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+        </v-main>
+  </v-app>
 </template>
 
 <script>
-    import { defineComponent } from 'vue'
-    import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue'
-    import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue'
-    import JetButton from '@/Jetstream/Button.vue'
-    import JetInput from '@/Jetstream/Input.vue'
-    import JetCheckbox from '@/Jetstream/Checkbox.vue'
-    import JetLabel from '@/Jetstream/Label.vue'
-    import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
-    import { Head, Link } from '@inertiajs/inertia-vue3';
-
-    export default defineComponent({
-        components: {
-            Head,
-            JetAuthenticationCard,
-            JetAuthenticationCardLogo,
-            JetButton,
-            JetInput,
-            JetCheckbox,
-            JetLabel,
-            JetValidationErrors,
-            Link,
-        },
-
-        props: {
-            canResetPassword: Boolean,
-            status: String
-        },
-
-        data() {
-            return {
-                form: this.$inertia.form({
-                    email: '',
-                    password: '',
-                    remember: false
-                })
-            }
-        },
-
-        methods: {
-            submit() {
-                this.form
-                    .transform(data => ({
-                        ... data,
-                        remember: this.form.remember ? 'on' : ''
-                    }))
-                    .post(this.route('login'), {
-                        onFinish: () => this.form.reset('password'),
-                    })
-            }
+  export default {
+    data() {
+        return {
+            form: this.$inertia.form({
+                email: '',
+                password: '',
+                remember: false
+            })
         }
-    })
+    },
+    props: {
+        canResetPassword: Boolean,
+        status: String,
+        errors: Object,
+    },
+    methods: {
+        submit() {
+            this.form.transform(data => ({
+                ... data,
+                remember: this.form.remember ? 'on' : ''
+            }))
+            .post(this.route('login'), {
+                onFinish: () => this.form.reset('password'),
+            })
+        },
+    },
+    // mounted(){
+    //     this.$vuetify.theme.dark = true;
+    // },
+  }
 </script>
+
+
+<style>
+@import 'vuetify/dist/vuetify.min.css';
+</style>

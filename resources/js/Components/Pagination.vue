@@ -1,46 +1,41 @@
 <template>
   <div v-if="links.length > 3">
-    <div class="flex flex-wrap -mb-1">
-    <template
-        v-for="(link, k) in links"
-        :key="k"
+    <div class="flex flex-wrap mb-1">
+    <inertia-link
+        v-for="(link, index) in links"
+        :key="index"
+        :href="route('tenant.product.create')"
     >
-        <Link :href="link.url">
             <v-btn
                 color="deep-purple-accent-3 mx-1"
                 :disabled="link.active"
-                size="small"
-                :variant="link.active ? 'contained-text' : null"
-                rounded="lg"
+                small
             >
                 <v-icon v-if="labelOrIcon(link.label) === 'icon'">
-                    {{ labelButton(link.label) }}
+                    {{ link.label | labelButton }}
                 </v-icon>
                 <span v-else>
-                     {{ labelButton(link.label) }}
+                     {{ link.label | labelButton }}
                 </span>
             </v-btn>
-        </Link>
-      </template>
+      </inertia-link>
     </div>
   </div>
 </template>
 
 <script>
-    import { defineComponent } from 'vue';
-    import { Link } from '@inertiajs/inertia-vue3';
 
-    export default defineComponent({
-        components: {
-            Link,
-        },
+    export default {
         props: {
             links: Array,
         },
         methods: {
-            labelOrIcon(value) {
+             labelOrIcon(value) {
                 return value.includes('Previous') || value.includes('Next') ? 'icon' : 'label';
             },
+        },
+        filters: {
+
             labelButton(value) {
                 if(value.includes('Previous')) {
                     return 'mdi-arrow-left-bold';
@@ -53,5 +48,5 @@
                 return value;
             }
         }
-    })
+    }
 </script>
