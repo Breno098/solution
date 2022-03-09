@@ -7,6 +7,7 @@ use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Services\Category\IndexCategoryService;
 use App\Services\Product\IndexProductService;
 use App\Services\Product\StoreProductService;
 use App\Services\Product\UpdateProductService;
@@ -27,7 +28,7 @@ class ProductController extends Controller
             $request->all('name'),
             $request->get('relations', []),
             $request->get('orderBy', 'name'),
-            $request->get('itemsPerPage', 15),
+            $request->get('itemsPerPage', 10),
         );
 
         return inertia('App/Product/Index', [
@@ -41,10 +42,13 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(IndexCategoryService $indexCategoryService)
     {
         //$this->authorize('product_show');
-        return inertia('App/Product/Create');
+
+        $categories = $indexCategoryService->run(['type' => 'product']);
+
+        return inertia('App/Product/Create', compact('categories'));
     }
 
     /**
@@ -59,7 +63,7 @@ class ProductController extends Controller
 
         $data = $storeProductRequest->validated();
 
-        $item = $storeProductService->run($data);
+        $storeProductService->run($data);
 
         return redirect()->route('tenant.product.index');
     }

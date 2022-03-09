@@ -4,18 +4,21 @@
     <inertia-link
         v-for="(link, index) in links"
         :key="index"
-        :href="route('tenant.product.create')"
+        :href="link.url | urlRoute"
     >
             <v-btn
-                color="deep-purple-accent-3 mx-1"
-                :disabled="link.active"
+                v-if="ifShow(link.label)"
+                :color="link.active ?  'deep-purple lighten-5 mx-1' : 'deep-purple accent-3 mx-1'"
+                :disabled="ifDisabled(link)"
                 small
+                elevation="0"
+                :dark="ifDark(link)"
             >
-                <v-icon v-if="labelOrIcon(link.label) === 'icon'">
+                <!-- <v-icon v-if="labelOrIcon(link.label) === 'icon'">
                     {{ link.label | labelButton }}
-                </v-icon>
-                <span v-else>
-                     {{ link.label | labelButton }}
+                </v-icon> -->
+                <span>
+                     {{ link.label }}
                 </span>
             </v-btn>
       </inertia-link>
@@ -30,12 +33,20 @@
             links: Array,
         },
         methods: {
-             labelOrIcon(value) {
-                return value.includes('Previous') || value.includes('Next') ? 'icon' : 'label';
+            ifShow(value) {
+                return !value.includes('Previous') && !value.includes('Next');
             },
+            ifDisabled(link) {
+                return link.active || link.label.includes('...');
+            },
+            ifDark(link) {
+                return !link.active && !link.label.includes('...');
+            }
         },
         filters: {
-
+            urlRoute(value) {
+                return value ? value : '#';
+            },
             labelButton(value) {
                 if(value.includes('Previous')) {
                     return 'mdi-arrow-left-bold';

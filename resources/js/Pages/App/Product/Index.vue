@@ -8,11 +8,15 @@
 
         <v-row class="mb-2">
             <v-col cols="6" md="10">
-                <v-menu>
-                    <template v-slot:activator="{ props }">
-                        <v-btn v-bind="props" small text>
+                <v-menu
+                    :close-on-content-click="false"
+                    :nudge-width="200"
+                    offset-y
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn text small v-bind="attrs" v-on="on">
                             Filtros
-                            <v-icon color="deep-purple accent-3">mdi-chevron-down</v-icon>
+                            <v-icon color="primary">mdi-chevron-down</v-icon>
                         </v-btn>
                     </template>
 
@@ -23,37 +27,39 @@
                                     <v-col cols="12">
                                         <v-text-field
                                             label="Nome"
-                                            color="deep-purple accent-3"
-                                            clearable
+                                            color="primary"
                                             v-model="filters.name"
                                             dense
+                                            filled
                                         ></v-text-field>
                                     </v-col>
                                 </v-row>
                             </v-card-text>
 
-                            <!-- <v-card-actions>
+                            <v-card-actions>
                                 <v-spacer></v-spacer>
 
-                                <Link :href="route('tenant.product.index')" class="mr-2">
+                                <inertia-link :href="route('tenant.product.index')">
                                     <v-btn
-                                        color="deep-purple accent-3"
+                                        color="deep-purple lighten-5"
                                         small
-                                        rounded
+                                        class="rounded-lg mr-2"
+                                        elevation="0"
                                     >
                                         Limpar
                                     </v-btn>
-                                 </Link>
+                                </inertia-link>
 
                                 <v-btn
-                                    color="deep-purple accent-3"
+                                    color="primary"
                                     type="submit"
                                     small
-                                    rounded
+                                    class="rounded-lg"
+                                    elevation="0"
                                 >
                                     Buscar
                                 </v-btn>
-                            </v-card-actions> -->
+                            </v-card-actions>
                         </v-card>
                     </form>
                 </v-menu>
@@ -62,10 +68,11 @@
             <v-col cols="6" md="2">
                 <inertia-link :href="route('tenant.product.create')">
                     <v-btn
-                        rounded
-                        color="deep-purple accent-3"
+                        color="primary"
+                        class="rounded-lg"
                         block
                         small
+                        dark
                     >
                         Criar produto <v-icon>mdi-plus</v-icon>
                     </v-btn>
@@ -75,13 +82,13 @@
 
         <v-card >
             <v-card-text class="px-5 py-5">
-                <v-simple-table dense>
+                <v-simple-table >
                     <template v-slot:default>
                         <thead>
                             <tr>
-                                <th class="text-left">NOME</th>
-                                <th class="text-left">VALOR (Base)</th>
-                                <th></th>
+                                <th class="text-left" style="width: 50%">NOME</th>
+                                <th class="text-left" style="width: 32%">VALOR (Base)</th>
+                                <th style="width: 18%"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -90,8 +97,8 @@
                                 :key="product.id"
                             >
                             <td>{{ product.name }}</td>
-                            <td>{{ formatMoney(product.default_value) }}</td>
-                            <td class="text-right">
+                            <td>{{ product.default_value | formatMoney }}</td>
+                            <td class="d-flex align-center">
                                 <v-btn
                                     color="deep-purple lighten-5"
                                     class="mr-2 rounded-lg"
@@ -148,16 +155,18 @@
             return {
             }
         },
-        methods: {
-            search() {
-                this.$inertia.get(route('tenant.product.index'), this.filters)
-            },
+        filters: {
             formatMoney(value) {
                 return !value ? null : (parseFloat(value)).toLocaleString('pt-br', {
                     style: 'currency',
                     currency: 'BRL',
                 });
             }
+        },
+        methods: {
+            search() {
+                this.$inertia.get(route('tenant.product.index'), this.filters)
+            },
         },
     };
 </script>

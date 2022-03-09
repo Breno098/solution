@@ -15,7 +15,26 @@ Vue.use(PortalVue);
 const app = document.getElementById('app');
 
 new Vue({
-    vuetify: new Vuetify(),
+    vuetify: new Vuetify({
+        theme: {
+            themes: {
+              light: {
+                primary: '#651FFF',
+                error: '#F44336',
+                success: '#00BCD4',
+                warning: '#E65100',
+
+                sideBar: '#00B8D4',
+                sidebarActive: '#000',
+
+                btnPrimary: '#00BCD4',
+                btnSecondary: '#00838F',
+                btnDanger: "#F44336",
+                btnCleanFilter: '#E0E0E0'
+              },
+            },
+        },
+    }),
     render: (h) =>
         h(InertiaApp, {
             props: {
